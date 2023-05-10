@@ -1,0 +1,17 @@
+# Création du réseau de type bridge
+# sous réseau 192.168.2.0 par DHCP
+docker network create --driver=bridge --subnet=192.168.2.0/24 sharenetwork
+
+# Création du premier conteneur sur mon réseau et lancement du bash au demarrage et
+# mode interractive pour qu'il ne s'arrete pa saprès le lancement du bash et faire l'exit
+docker run -it --name ubuntu1 --network sharenetwork -d ubuntu /bin/bash
+
+
+## Pour inspecter et voir p.ex l'ip du container
+docker inspect ubuntu1
+
+## Pour rentrer dans le container 
+docker exec -it ubuntu1 /bin/bash
+
+## Ensuite on installe une fois dans le container un utilitaire ping pour faciliter le ping
+apt-get update && apt-get install iputils-ping
